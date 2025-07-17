@@ -1,10 +1,15 @@
 import React from 'react'
 import {Router} from 'react-dom'
+import { Route, Routes } from 'react-router-dom'
 const App = () => {
   return (
-    <div>
-      
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/signup' element={
+          
+        } />
+      </Routes>
+    </Router>
   )
 }
 
