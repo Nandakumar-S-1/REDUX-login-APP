@@ -5,4 +5,4 @@ const userController = require('../controllers/userController')
 const userAuth = require('../middleware/userAuth')
 const upload = require('../utils/multer')
 
-userRouter.get('/')
+userRouter.get('/profile',)
