@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
 export function AdminProtect({children}){
-    const isAdminLoggedIn = useSelector((state)=>state.admin.isAdminLoggedIn)
+const isAdminLoggedIn = useSelector((state) => state.admin.AdminLoggedIn);
     if(!isAdminLoggedIn){
         return <Navigate to='/admin/login' replace/>
     }

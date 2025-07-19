@@ -23,7 +23,7 @@ const showUser=async (req,res) => {
 }
 
 const addUser = async (req,res) => {
-    const {userName,email,mobile,password}=req.body
+    const {userName,email,phone,password}=req.body
     try {
         const existingUser = await User.findOne({email})
         if(existingUser){
@@ -54,9 +54,44 @@ const logOutLoad= async(req,res)=>{
     return res.status(200).json({message:'Logout is success'})
 }
 
+const editUser = async (req,res) => {
+    
+        const {id}=req.params
+        const {name,email,phone}=req.body
+
+        try {
+            const updatedUser = await User.findByIdAndUpdate(
+                id,
+                {
+                    userName:name,
+                    email:email,
+                    phone:phone
+                }
+            )
+            if(!updatedUser){
+                return res.status(404).json({error:'User not found'})
+            }
+            res.json({message:'User update is successfull'})
+        } catch (error) {
+            res.status(500).json({error:'Error updating Use'})
+        }
+    } 
+
+    const deleteUser = async (req,res) => {
+        try {
+            const userId = req.params.id
+            await User.findByIdAndDelete(userId)
+            res.status(200).json({message:'User deleted succesfully'})
+        } catch (error) {
+            res.status(500).send({message:'Error occured deleeting user',error})
+        }
+    }
+
 module.exports={
     getHome,
     addUser,
     showUser,
-    logOutLoad
+    logOutLoad,
+    editUser,
+    deleteUser
 }

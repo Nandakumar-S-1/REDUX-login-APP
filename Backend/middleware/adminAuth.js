@@ -36,7 +36,7 @@ const adminAuth = async (req, res) => {
 };
 
 const adminVerification = async(req,res,next)=>{
-    const token = req.cookie.adminToken
+    const token = req.cookies.adminToken
 
     if(!token){
         return res.status(401).json({message:'No token provided . Access denied'})
