@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userSchama");
 
+
 const adminAuth = async (req, res) => {
   const { email, password } = req.body;
 
@@ -29,6 +30,8 @@ const adminAuth = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: "Lax",
     });
+    // console.log('token=======',token);
+    
     res.json({admin})
   } catch (error) {
     return res.status(500).json({message:'server error '})
