@@ -13,17 +13,17 @@ const EditProfile = () => {
   const [name, setName] = useState(user?.userName || "");
   const [email, setEmail] = useState(user?.email || "");
   const [phone, setPhone] = useState(user?.phone || "");
-  const [profileImage, setProfileImage] = useState(null);
+  const [profilePicture, setprofilePicture] = useState(null);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
-  const [previewImage, setPreviewImage] = useState(user?.profileImage || "");
+  const [previewImage, setPreviewImage] = useState(user?.profilePicture || "");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   useEffect(() => {
-    if (user?.profileImage) {
+    if (user?.profilePicture) {
       setPreviewImage(
-        `${import.meta.env.VITE_BASE_IMG_URL}/${user.profileImage}`
+        `${import.meta.env.VITE_BASE_IMG_URL}/${user.profilePicture}`
       );
     }
   },[user]);
@@ -40,7 +40,7 @@ const EditProfile = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfileImage(file);
+      setprofilePicture(file);
       setPreviewImage(URL.createObjectURL(file));
     }
   };
@@ -70,8 +70,8 @@ const EditProfile = () => {
     formData.append('email', email);
     formData.append('phone', phone);
 
-    if (profileImage) {
-      formData.append('profileImage', profileImage);
+    if (profilePicture) {
+      formData.append('profilePicture', profilePicture);
     }
 
     try {

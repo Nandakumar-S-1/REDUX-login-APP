@@ -5,12 +5,14 @@ const jwt = require('jsonwebtoken')
 const Signup = async (req,res) => {
     try {
         const {userName,email,phone,password,profilePicture} = req.body
+        console.log(userName,email,phone,password)
         const userExist = await User.findOne({email})
         if(userExist){
-            res.status(400).json({message:'User with this email alredy exist'})
+            return res.status(400).json({message:'User with this email alredy exist'})
         }
-
+        console.log('33333333')
         const hashPass = await bcrypt.hash(password,10)
+        console.log('44444444')
         const newUser = new User({
             userName,
             email,
@@ -18,7 +20,7 @@ const Signup = async (req,res) => {
             password:hashPass,
             profilePicture:req.file ? req.file.path : null
         })
-
+        console.log('nnnnnnnnnnnn',newUser)
         await newUser.save()
 
         res.status(201).json({
@@ -32,7 +34,7 @@ const Signup = async (req,res) => {
             }
         })
     } catch (error) {
-        res.status(500).json({message:'Error occured during signing up',error:error.message})
+        res.status(500).json({message:'Error occured during signing upppppppppppp',error:error.message})
     }
 }
 

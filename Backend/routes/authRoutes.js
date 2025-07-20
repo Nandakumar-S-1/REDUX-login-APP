@@ -4,6 +4,7 @@ const authController = require('../controllers/authController')
 const upload= require('../utils/multer')
 
 router.post('/signup',upload.single('profilePicture'),authController.Signup)
+// router.post('/signup',authController.Signup)
 router.post('/login',authController.Login)
 
 

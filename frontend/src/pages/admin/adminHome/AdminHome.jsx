@@ -50,10 +50,10 @@ const AdminHome = () => {
             <div className="admin-card">
               <div className="admin-info">
                 <div className="admin-avatar">
-                  {admin.profileImage ? (
+                  {admin.profilePicture ? (
                     <img
                       src={`${import.meta.env.VITE_BASE_IMG_URL}/${
-                        admin.profileImage
+                        admin.profilePicture
                       }`}
                     />
                   ) : (

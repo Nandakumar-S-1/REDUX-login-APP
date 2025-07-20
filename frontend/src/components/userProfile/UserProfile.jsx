@@ -3,7 +3,7 @@ import axiosInstance from '../../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import { User,Mail,Phone,Edit2,LogOut } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import {logout} from '../../redux/slice/UserSlice'
 
 const UserProfile = () => {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const UserProfile = () => {
   }
 
   function handleLogout() {
-    setIsLogoutPopupVisible(true)
+    setIsLogoutPopUpVisible(true)
   }
 
   const confirmLogout = async () => {
@@ -31,7 +31,7 @@ const UserProfile = () => {
   }
 
   function cancelLogout() {
-    setIsLogoutPopupVisible(false)
+    setIsLogoutPopUpVisible(false)
   }
 
 
@@ -43,7 +43,7 @@ const UserProfile = () => {
         {error && <p className="error">{error}</p>}
         <div className="profile-image-container">
           <img
-            src={user?.profileImage ? `${import.meta.env.VITE_BASE_IMG_URL}/${user.profileImage}` : '/src/assets/dummy.jpg'}
+            src={user?.profilePicture ? `${import.meta.env.VITE_BASE_IMG_URL}/${user.profilePicture}` : '/src/assets/dummy.jpg'}
             alt="Profile"
             className="profile-image"
           />
@@ -77,7 +77,7 @@ const UserProfile = () => {
           </button>
         </div>
       </div>
-      {isLogoutPopupVisisble && (
+      {isLogoutPopUpVisible && (
         <div className="confirmation-popup">
           <div className="popup-content">
             <h3>Are you sure you want to log out?</h3>

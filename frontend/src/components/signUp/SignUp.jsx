@@ -9,7 +9,7 @@ const SignUp = () => {
     email: "",
     phone: "",
     password: "",
-    profileImage: null,
+    profilePicture: null,
   });
 
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const SignUp = () => {
     email: "",
     phone: "",
     password: "",
-    profileImage: "",
+    profilePicture: "",
   });
 
   const validateUserName = (userName) => {
@@ -40,7 +40,7 @@ const SignUp = () => {
   };
 
   const validateEmail = (email) => {
-   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       return "Enter a valid email";
     }
@@ -55,7 +55,7 @@ const SignUp = () => {
     return "";
   };
 
-  const validateProfileImage = (file) => {
+  const validateprofilePicture = (file) => {
     if (!file) {
       return "profile picture is needed";
     }
@@ -81,24 +81,25 @@ const SignUp = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, profileImage: e.target.files[0] });
+    setFormData({ ...formData, profilePicture: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Im here");
     const nameError = validateUserName(formData.userName);
     const phoneError = validatePhone(formData.phone);
     const emailError = validateEmail(formData.email);
     const passwordError = validatePassword(formData.password);
-    const profileImageError = validateProfileImage(formData.profileImage);
+    const profilePictureError = validateprofilePicture(formData.profilePicture);
 
     setError({
       userName: nameError,
       phone: phoneError,
       email: emailError,
       password: passwordError,
-      profileImage: profileImageError,
+      profilePicture: profilePictureError,
     });
 
     if (
@@ -106,23 +107,33 @@ const SignUp = () => {
       phoneError ||
       emailError ||
       passwordError ||
-      profileImageError
+      profilePictureError
     ) {
       return;
     }
 
     //proceedin with submision
-    const formDataToSend = new FormData();
-    formDataToSend.append("userName", formData.userName);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("phone", formData.phone);
-    formDataToSend.append("password", formData.password);
-    if (formData.profileImage) {
-      formDataToSend.append("profilePicture", formData.profileImage);
-    }
-
+    // const formDataToSend = new FormData();
+    // formDataToSend.append("userName", formData.userName);
+    // console.log('ddddddddd')
+    // formDataToSend.append("email", formData.email);
+    // formDataToSend.append("phone", formData.phone);
+    // formDataToSend.append("password", formData.password);
+    // // if (formData.profilePicture) {
+    // //   formDataToSend.append("profilePicture", formData.profilePicture);
+    // // }
+    // console.log('jjjjjjjjjjjjjjjjjjjjjjjjjj',formDataToSend)
     try {
-      const response = await axiosInstance.post("/auth/signup", formDataToSend);
+      console.log("Im here 2");
+      const response = await axiosInstance.post("/auth/signup", {
+        userName: formData.userName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        profilePicture : formData.profilePicture
+      });
+
+      // console.log("aaaaaaa", formDataToSend);
       setMessage(response.data.message);
       toast.success("Registration Succesful");
       setTimeout(() => navigate("/"), 2000);
@@ -190,16 +201,16 @@ const SignUp = () => {
               <p className="error-message">{error.password}</p>
             )}
           </div>
-
+          
           <div className="form-group">
             <input
               type="file"
-              name="profileImage"
+              name="profilePicture"
               onChange={handleFileChange}
               className="form-file-input"
             />
-            {error.profileImage && (
-              <p className="error-message">{error.profileImage}</p>
+            {error.profilePicture && (
+              <p className="error-message">{error.profilePicture}</p>
             )}
           </div>
           {/* <button type="submit" className="submit-btn" disabled={!error.userName || !!error.phone}>Sign Up</button> */}
@@ -211,12 +222,12 @@ const SignUp = () => {
               !!error.phone ||
               !!error.email ||
               !!error.password ||
-              !!error.profileImage ||
+              !!error.profilePicture ||
               !formData.userName ||
               !formData.email ||
               !formData.phone ||
               !formData.password ||
-              !formData.profileImage
+              !formData.profilePicture
             }
           >
             Sign Up

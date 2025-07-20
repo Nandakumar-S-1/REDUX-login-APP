@@ -6,14 +6,14 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 
 const app = express()
-// const allowedOrgins = ['http://localhost:5173']
+const allowedOrgins = ['http://localhost:5173']
 const authRoute = require('./routes/authRoutes')
 const userRoute = require('./routes/userRoutes')
 const adminRoute= require('./routes/adminRoutes')
 
 
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:allowedOrgins,
     credentials:true
 }))
 
@@ -23,7 +23,7 @@ connectDB()
 
 app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 
-
+//use routes
 app.use('/auth',authRoute)
 app.use('/user',userRoute)
 app.use('/admin',adminRoute)

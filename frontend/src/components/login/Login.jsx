@@ -1,10 +1,9 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../utils/axiosInstance'
 import {login} from '../../redux/slice/UserSlice'
-import { Toaster } from 'sonner'
+import { toast, Toaster } from 'sonner'
 
 
 const Login = () => {
