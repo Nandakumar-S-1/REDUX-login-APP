@@ -21,9 +21,11 @@ app.use(express.json())
 app.use(cookieParser())
 connectDB()
 
-app.use('/uploads',express.static(path.join(__dirname,'uploads')))
+// app.use('/uploads',express.static(path.join(__dirname,'uploads')))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-//use routes
+
+//  routes
 app.use('/auth',authRoute)
 app.use('/user',userRoute)
 app.use('/admin',adminRoute)

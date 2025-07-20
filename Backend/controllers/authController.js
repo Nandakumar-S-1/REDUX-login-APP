@@ -18,6 +18,9 @@ const Signup = async (req,res) => {
             password:hashPass,
             profilePicture:req.file ? req.file.path : null
         })
+
+        console.log("Uploaded file------------------:", req.file);
+
         await newUser.save()
 
         res.status(201).json({

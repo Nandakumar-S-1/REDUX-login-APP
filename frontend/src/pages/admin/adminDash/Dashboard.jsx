@@ -163,13 +163,22 @@ const Dashboard = () => {
                   {filteredUsers.map((user) => (
                     <tr key={user._id}>
                       <td>
-                        <img
+                        {/* <img
                           src={
-                            user?.profileImage
-                              ? `${import.meta.env.VITE_BASE_IMG_URL}/${user.profileImage}`
+                            user?.profilePicture
+                              ? `${import.meta.env.VITE_BASE_IMG_URL}/${user.profilePicture}`
                               : "/src/assets/dummy.jpg"
                           }
-                          alt={user.username}
+                          alt={user.userName}
+                          className="user-image"
+                        /> */}
+                        <img
+                          src={
+                            user?.profilePicture
+                              ? `${import.meta.env.VITE_BASE_IMG_URL.replace(/\/$/, '')}/${user.profilePicture.replace(/^\//, '')}`
+                              : "/src/assets/dummy.jpg"
+                          }
+                          alt={user.userName}
                           className="user-image"
                         />
                       </td>

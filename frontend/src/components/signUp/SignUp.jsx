@@ -38,6 +38,13 @@ const SignUp = () => {
     }
     return "";
   };
+  //  const validatePhone = (phone) => {
+  //   const phonePattern = /^(?!([0-5]))(?!([0-9])\1{9})\d{10}$/;
+  //   if (!phonePattern.test(phone)) {
+  //     return "Mobile number must start 6–9, be 10 digits, and not all digits same";
+  //   }
+  //   return "";
+  // };
 
   const validateEmail = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -85,64 +92,114 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    console.log("Im here");
-    const nameError = validateUserName(formData.userName);
-    const phoneError = validatePhone(formData.phone);
-    const emailError = validateEmail(formData.email);
-    const passwordError = validatePassword(formData.password);
-    const profilePictureError = validateprofilePicture(formData.profilePicture);
+  const nameError = validateUserName(formData.userName);
+  const phoneError = validatePhone(formData.phone);
+  const emailError = validateEmail(formData.email);
+  const passwordError = validatePassword(formData.password);
+  const profilePictureError = validateprofilePicture(formData.profilePicture);
 
-    setError({
-      userName: nameError,
-      phone: phoneError,
-      email: emailError,
-      password: passwordError,
-      profilePicture: profilePictureError,
+  setError({
+    userName: nameError,
+    phone: phoneError,
+    email: emailError,
+    password: passwordError,
+    profilePicture: profilePictureError,
+  });
+
+  if (
+    nameError ||
+    phoneError ||
+    emailError ||
+    passwordError ||
+    profilePictureError
+  ) {
+    return;
+  }
+
+  const formDataToSend = new FormData();
+  formDataToSend.append("userName", formData.userName);
+  formDataToSend.append("email", formData.email);
+  formDataToSend.append("phone", formData.phone);
+  formDataToSend.append("password", formData.password);
+  formDataToSend.append("profilePicture", formData.profilePicture);
+
+  try {
+    const response = await axiosInstance.post("/auth/signup", formDataToSend, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
-    if (
-      nameError ||
-      phoneError ||
-      emailError ||
-      passwordError ||
-      profilePictureError
-    ) {
-      return;
-    }
+    toast.success("Registration Successful");
+    setTimeout(() => navigate("/"), 2000);
+  } catch (error) {
+    const errorMes = error.response?.data?.message || "Signup failed";
+    toast.error(errorMes);
+  }
+};
 
-    //proceedin with submision
-    // const formDataToSend = new FormData();
-    // formDataToSend.append("userName", formData.userName);
-    // console.log('ddddddddd')
-    // formDataToSend.append("email", formData.email);
-    // formDataToSend.append("phone", formData.phone);
-    // formDataToSend.append("password", formData.password);
-    // // if (formData.profilePicture) {
-    // //   formDataToSend.append("profilePicture", formData.profilePicture);
-    // // }
-    // console.log('jjjjjjjjjjjjjjjjjjjjjjjjjj',formDataToSend)
-    try {
-      console.log("Im here 2");
-      const response = await axiosInstance.post("/auth/signup", {
-        userName: formData.userName,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-        profilePicture : formData.profilePicture
-      });
 
-      // console.log("aaaaaaa", formDataToSend);
-      setMessage(response.data.message);
-      toast.success("Registration Succesful");
-      setTimeout(() => navigate("/"), 2000);
-    } catch (error) {
-      const errorMes = error.response?.data?.message || "signup failed";
-      setMessage(errorMes);
-      toast.error(errorMes);
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   console.log("Im here");
+  //   const nameError = validateUserName(formData.userName);
+  //   const phoneError = validatePhone(formData.phone);
+  //   const emailError = validateEmail(formData.email);
+  //   const passwordError = validatePassword(formData.password);
+  //   const profilePictureError = validateprofilePicture(formData.profilePicture);
+
+  //   setError({
+  //     userName: nameError,
+  //     phone: phoneError,
+  //     email: emailError,
+  //     password: passwordError,
+  //     profilePicture: profilePictureError,
+  //   });
+
+  //   if (
+  //     nameError ||
+  //     phoneError ||
+  //     emailError ||
+  //     passwordError ||
+  //     profilePictureError
+  //   ) {
+  //     return;
+  //   }
+
+  //   //proceedin with submision
+  //   // const formDataToSend = new FormData();
+  //   // formDataToSend.append("userName", formData.userName);
+  //   // console.log('ddddddddd')
+  //   // formDataToSend.append("email", formData.email);
+  //   // formDataToSend.append("phone", formData.phone);
+  //   // formDataToSend.append("password", formData.password);
+  //   // // if (formData.profilePicture) {
+  //   // //   formDataToSend.append("profilePicture", formData.profilePicture);
+  //   // // }
+  //   // console.log('jjjjjjjjjjjjjjjjjjjjjjjjjj',formDataToSend)
+  //   try {
+  //     console.log("Im here 2");
+  //     const response = await axiosInstance.post("/auth/signup", {
+  //       userName: formData.userName,
+  //       email: formData.email,
+  //       phone: formData.phone,
+  //       password: formData.password,
+  //       profilePicture : formData.profilePicture
+  //     });
+
+  //     // console.log("aaaaaaa", formDataToSend);
+  //     setMessage(response.data.message);
+  //     toast.success("Registration Succesful");
+  //     setTimeout(() => navigate("/"), 2000);
+  //   } catch (error) {
+  //     const errorMes = error.response?.data?.message || "signup failed";
+  //     setMessage(errorMes);
+  //     toast.error(errorMes);
+  //   }
+  // };
 
   return (
     <>
