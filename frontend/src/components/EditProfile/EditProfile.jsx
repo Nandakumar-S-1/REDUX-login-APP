@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { updateUser } from "../../redux/slice/UserSlice";
 import { User, Mail, Phone, Save, Image } from "lucide-react";
 import { toast, Toaster } from "sonner";
+import '../../assets/styles/EditProfile.css'
 
 const EditProfile = () => {
   const dispatch = useDispatch();

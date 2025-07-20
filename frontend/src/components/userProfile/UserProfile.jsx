@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { User,Mail,Phone,Edit2,LogOut } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import {logout} from '../../redux/slice/UserSlice'
+import '../../assets/styles/Profile.css'
 
 const UserProfile = () => {
     const dispatch = useDispatch()

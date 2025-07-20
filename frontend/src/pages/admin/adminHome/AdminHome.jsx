@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axiosInstance";
 import { adminLogout } from "../../../redux/slice/AdminSlice";
+import { toast, Toaster } from "sonner";
+import '../../../assets/styles/AdminHome.css'
 
 const AdminHome = () => {
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const AdminHome = () => {
           </div>
         </header>
 
-        <main className="main-content">
+        {/* <main className="main-content">
           <div className="container">
             <div className="admin-card">
               <div className="admin-info">
@@ -71,6 +73,47 @@ const AdminHome = () => {
                 <span className="icon icon-email"></span>
                 <span>{admin.email}</span>
               </div>
+            </div>
+          </div>
+        </main> */}
+
+        <main className="main-content">
+          <div className="container">
+            <div className="admin-card">
+              <div className="admin-info">
+                <div className="admin-avatar">
+                  {admin.profilePicture ? (
+                    <img
+                      src={`${import.meta.env.VITE_BASE_IMG_URL}/${
+                        admin.profilePicture
+                      }`}
+                      alt="Admin Avatar"
+                    />
+                  ) : (
+                    <div className="avatar-placeholder">
+                      {admin?.userName?.charAt(0) || "A"}
+                    </div>
+                  )}
+                </div>
+                <div className="admin-details">
+                  <h2 className="admin-name">Welcome, {admin.userName}</h2>
+                  <p className="admin-role">Administrator</p>
+                </div>
+              </div>
+
+              <div className="admin-contact">
+                <span className="icon icon-email"></span>
+                <span>{admin.email}</span>
+              </div>
+            </div>
+
+            <div className="admin-actions">
+              <button
+                className="btn btn-dashboard"
+                onClick={() => navigate("/admin/dashboard")}
+              >
+                Go to Dashboard
+              </button>
             </div>
           </div>
         </main>

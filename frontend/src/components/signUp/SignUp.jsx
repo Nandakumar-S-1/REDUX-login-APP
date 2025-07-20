@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
-
+import '../../assets/styles/Signup.css'
 const SignUp = () => {
   const [formData, setFormData] = useState({
     userName: "",
@@ -148,6 +148,7 @@ const SignUp = () => {
     <>
       <Toaster position="top-center" />
       <div className="signup-container">
+        <div className="signup-card">
         <h2 className="signup-title">Signup</h2>
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="form-group">
@@ -233,7 +234,11 @@ const SignUp = () => {
             Sign Up
           </button>
         </form>
+        <a className="signup-link" href="/">
+            Sign In
+          </a>
         {message && <p className="signup-message">{message}</p>}
+        </div>
       </div>
     </>
   );

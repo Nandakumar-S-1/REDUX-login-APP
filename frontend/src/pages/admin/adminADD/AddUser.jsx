@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from '../../../utils/axiosInstance'
 import { toast ,Toaster } from 'sonner'
+import '../../../assets/styles/AddUser.css'
+import {User,Mail,Phone,CheckCircle2,Lock, AlertCircle,ArrowLeft} from 'lucide-react'
 
 const AddUser = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +20,8 @@ const AddUser = () => {
   });
 
   const [message, setMessage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -104,6 +108,13 @@ const AddUser = () => {
       <div className="add-user-container">
         <div className="add-user-card">
           <div className="card-header">
+            <button 
+          className="back-button" 
+          onClick={() => navigate('/admin/dashboard')}
+          disabled={isLoading}
+        >
+          <ArrowLeft className="icon" />
+        </button>
             <h2 className="card-title">
               <User className="icon" />
               Add New User

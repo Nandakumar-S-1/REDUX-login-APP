@@ -3,8 +3,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axiosInstance";
 import { adminLogin } from "../../../redux/slice/AdminSlice";
+import { toast,Toaster } from "sonner";
+import '../../../assets/styles/AdminLogin.css'
 
 const AdminLogin = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,6 +25,7 @@ const AdminLogin = () => {
     return password.length >= 6;
   };
   useEffect(() => {
+
     if (email && !validateEmail(email)) {
       setEmailError("Invalid email format");
     } else {
@@ -33,9 +37,12 @@ const AdminLogin = () => {
       setPasswordError("");
     }
   }, [email, password]);
+          console.log("AdminLogin rendered");
 
   const handleLogin = async (e) => {
-    e.preventDefalult();
+    e.preventDefault(); 
+    console.log("--------------------------AdminLogin rendered222");
+
 
     let isFormValid = true;
     if (!email) {
@@ -46,6 +53,7 @@ const AdminLogin = () => {
       setPasswordError("password is required");
       isFormValid = false;
     }
+
     if (!isFormValid) return;
 
     try {

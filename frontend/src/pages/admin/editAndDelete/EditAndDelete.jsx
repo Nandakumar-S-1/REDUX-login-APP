@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axiosInstance from '../../../utils/axiosInstance'
 import {toast,Toaster} from 'sonner'
 import {User,Mail,Save,Phone,X} from 'lucide-react'
+import '../../../assets/styles/EditAndDelete.css'
 
 const EditAndDelete = ({user,onSave,onCancel,update}) => {
     const [formData,setFormData]=useState({
@@ -81,6 +82,7 @@ const EditAndDelete = ({user,onSave,onCancel,update}) => {
     <>
       <Toaster position="top-right" richColors />
       <div className="edit-user-admin">
+        
         <h3>Edit User</h3>
         <div className="form-group">
           <label htmlFor="name">

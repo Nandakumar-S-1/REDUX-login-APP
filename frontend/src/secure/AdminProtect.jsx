@@ -11,8 +11,16 @@ const isAdminLoggedIn = useSelector((state) => state.admin.AdminLoggedIn);
 }
 
 export function AdminLoginProtect({children}){
-    const isAdminLoggedIn = useSelector((state)=>state.admin.isAdminLoggedIn)
+    // const isAdminLoggedIn = useSelector((state)=>state.admin.isAdminLoggedIn)
+    const isAdminLoggedIn = useSelector((state) => state.admin.AdminLoggedIn);
     const isUserLoggedIn = useSelector((state)=>state.auth.isLoggedIn)
+
+
+    console.log("ADMIN STATUS =>", {
+  isAdminLoggedIn,
+  isUserLoggedIn
+});
+
 
     if(isAdminLoggedIn){
         return <Navigate to='/admin/home' replace/>

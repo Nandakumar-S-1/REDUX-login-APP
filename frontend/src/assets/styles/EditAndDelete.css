@@ -1,0 +1,410 @@
+/* EditAndDelete.css - Modern theme matching other admin pages */
+
+.edit-user-admin {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  animation: slideUp 0.5s ease-out;
+  position: relative;
+}
+
+.edit-user-admin h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.edit-user-admin h3::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 0.95rem;
+}
+
+.form-group label svg {
+  color: #667eea;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+  color: #2d3748;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-group input:valid:not(:placeholder-shown) {
+  border-color: #48bb78;
+  background: #f0fff4;
+}
+
+.form-group input:valid:not(:placeholder-shown):focus {
+  border-color: #48bb78;
+  box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: slideIn 0.3s ease;
+}
+
+.error::before {
+  content: '⚠';
+  font-size: 0.75rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  justify-content: center;
+}
+
+.save-button,
+.cancel-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.save-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.save-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.cancel-button {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+.cancel-button:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  transform: translateY(-2px);
+}
+
+.save-button:focus,
+.cancel-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.save-button:active,
+.cancel-button:active {
+  transform: translateY(0);
+}
+
+/* Confirmation Modal */
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: slideUp 0.3s ease;
+}
+
+.modal-content p {
+  margin-bottom: 25px;
+  color: #2d3748;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.yes-button,
+.no-button {
+  padding: 12px 24px;
+  margin: 0 8px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  min-width: 100px;
+}
+
+.yes-button {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.yes-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+}
+
+.no-button {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+.no-button:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .edit-user-admin {
+    padding: 30px 25px;
+    margin: 20px;
+  }
+  
+  .edit-user-admin h3 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group input {
+    padding: 14px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+  }
+  
+  .save-button,
+  .cancel-button {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-user-admin {
+    padding: 25px 20px;
+    margin: 15px;
+  }
+  
+  .edit-user-admin h3 {
+    font-size: 1.25rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group input {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+  
+  .save-button,
+  .cancel-button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 25px 20px;
+    margin: 20px;
+  }
+  
+  .yes-button,
+  .no-button {
+    width: 100%;
+    margin: 4px 0;
+  }
+}
+
+/* Loading state */
+.save-button:disabled,
+.cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.save-button.loading {
+  position: relative;
+  color: transparent;
+}
+
+.save-button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Ensure text visibility */
+.form-group input {
+  color: #2d3748 !important;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0 !important;
+}
+
+.form-group label {
+  color: #2d3748 !important;
+}
+
+/* Form validation feedback */
+.form-group.valid input {
+  border-color: #48bb78;
+  background: #f0fff4;
+}
+
+.form-group.invalid input {
+  border-color: #e53e3e;
+  background: #fed7d7;
+}
+
+/* Hover effects for better UX */
+.form-group input:hover:not(:focus) {
+  border-color: #cbd5e0;
+  background: white;
+}
+
+.form-group.invalid input:hover:not(:focus) {
+  border-color: #fc8181;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  box-sizing: border-box;
+}
+
+/* Override any parent container styles that might interfere */
+.edit-user-admin * {
+  box-sizing: border-box;
+}
+
+/* Ensure proper text rendering */
+.edit-user-admin {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
