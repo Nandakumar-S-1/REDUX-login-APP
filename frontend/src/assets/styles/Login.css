@@ -1,6 +1,15 @@
-/* Login.css - Fixed with visible text color */
+/* Login.css - Force override all conflicting styles */
 
-/* Reset and ensure full viewport coverage */
+/* Reset body styles specifically for login page */
+body:has(.login-container) {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  place-items: unset !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+}
+
 .login-container {
   position: fixed;
   top: 0;
@@ -14,25 +23,29 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   z-index: 1;
   box-sizing: border-box;
+  overflow-y: auto;
+  margin: 0;
 }
 
-.login-form {
+.login-card {
   background: white;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   padding: 40px;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   position: relative;
   backdrop-filter: blur(10px);
   margin: 0 auto;
   box-sizing: border-box;
+  animation: slideUp 0.5s ease-out;
+  transform: translateX(0);
 }
 
-.login-form h1 {
+.login-title {
   text-align: center;
   margin-bottom: 30px;
   font-size: 2rem;
@@ -44,25 +57,19 @@
   background-clip: text;
 }
 
-/* Form Styling */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .form-group {
-  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #4a5568;
-  font-size: 0.95rem;
-}
-
-.input-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.input-wrapper input {
+.form-input {
   width: 100%;
   padding: 14px 16px;
   border: 2px solid #e2e8f0;
@@ -74,7 +81,7 @@
   box-sizing: border-box;
 }
 
-.input-wrapper input:focus {
+.form-input:focus {
   outline: none;
   border-color: #667eea;
   background: white;
@@ -82,41 +89,38 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.input-wrapper input:hover {
+.form-input:hover {
   border-color: #cbd5e0;
   color: #2d3748; /* 👈 Ensure text stays visible on hover */
 }
 
-.input-wrapper input::placeholder {
+.form-input::placeholder {
   color: #a0aec0; /* 👈 Lighter color for placeholder */
   opacity: 1; /* 👈 Ensure placeholder is visible */
 }
 
-/* Error Styling */
-.error {
+.error-message {
   color: #e53e3e;
   font-size: 0.875rem;
-  margin-top: 6px;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-top: 4px;
 }
 
-.error::before {
+.error-message::before {
   content: "⚠";
   font-size: 0.75rem;
 }
 
-/* Error state for inputs */
-.input-wrapper input.error {
-  border-color: #e53e3e;
-  background: #fed7d7;
+.input-error {
+  border-color: #e53e3e !important;
+  background: #fed7d7 !important;
   color: #2d3748 !important; /* 👈 Ensure text is visible even in error state */
 }
 
-/* Submit Button */
-.login-form button[type="submit"] {
+.submit-btn {
   width: 100%;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
@@ -131,21 +135,17 @@
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-.login-form button[type="submit"]:hover {
+.submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
-.login-form button[type="submit"]:active {
-  transform: translateY(0);
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.login-form button[type="submit"]:focus {
-  outline: 2px solid #667eea;
-  outline-offset: 2px;
-}
-
-/* Signup Link */
 .signup-link {
   display: block;
   text-align: center;
@@ -164,87 +164,13 @@
   transform: translateY(-1px);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .login-container {
-    padding: 15px;
-  }
-  
-  .login-form {
-    padding: 30px 25px;
-  }
-  
-  .login-form h1 {
-    font-size: 1.75rem;
-    margin-bottom: 25px;
-  }
-}
-
-@media (max-width: 480px) {
-  .login-form {
-    padding: 25px 20px;
-  }
-  
-  .login-form h1 {
-    font-size: 1.5rem;
-  }
-  
-  .input-wrapper input {
-    padding: 12px 14px;
-  }
-  
-  .login-form button[type="submit"] {
-    padding: 14px 20px;
-    font-size: 1rem;
-  }
-}
-
-/* Loading state for button */
-.login-form button[type="submit"]:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Smooth transitions for all interactive elements */
-* {
-  box-sizing: border-box;
-}
-
-/* Override any parent container styles that might interfere */
-.login-container * {
-  box-sizing: border-box;
-}
-
-/* Remove any conflicting admin styles */
-.admin-login,
-.admin-header,
-.ad-l-error {
-  /* display: none !important; */
-}
-
-/* Custom scrollbar for consistency */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e0;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a0aec0;
-}
-
-/* Animation for form appearance */
-.login-form {
-  animation: slideUp 0.5s ease-out;
+.login-message {
+  text-align: center;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #2d3748;
 }
 
 @keyframes slideUp {
@@ -258,49 +184,62 @@
   }
 }
 
-/* Focus styles for accessibility */
-.login-form input:focus,
-.login-form button:focus,
-.signup-link:focus {
-  outline: 2px solid #667eea;
-  outline-offset: 2px;
+@media (max-width: 768px) {
+  .login-container {
+    padding: 15px;
+  }
+
+  .login-card {
+    padding: 30px 25px;
+  }
+
+  .login-title {
+    font-size: 1.75rem;
+    margin-bottom: 25px;
+  }
 }
 
-/* Ensure proper text rendering */
-.login-form {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@media (max-width: 480px) {
+  .login-card {
+    padding: 25px 20px;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+
+  .form-input {
+    padding: 12px 14px;
+  }
+
+  .submit-btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
 }
 
-/* 👈 Additional fixes for text visibility */
-.login-form * {
+/* Override any global styles completely */
+* {
+  box-sizing: border-box;
+}
+
+.login-card * {
   color: inherit;
 }
 
-.login-form input {
+.login-card input {
   color: #2d3748 !important;
 }
 
-.login-form input::placeholder {
+.login-card input::placeholder {
   color: #a0aec0 !important;
   opacity: 1 !important;
 }
 
-/* Override any global styles that might be interfering */
-.input-wrapper input:not(:placeholder-shown) {
+.form-input:not(:placeholder-shown) {
   color: #2d3748 !important;
 }
 
-.input-wrapper input:focus:not(:placeholder-shown) {
+.form-input:focus:not(:placeholder-shown) {
   color: #2d3748 !important;
-}
-
-/* Ensure labels are visible */
-.form-group label {
-  color: #4a5568 !important;
-}
-
-/* Ensure error messages are visible */
-.error {
-  color: #e53e3e !important;
 }

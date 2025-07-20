@@ -74,13 +74,20 @@ const EditProfile = () => {
     if (profilePicture) {
       formData.append('profilePicture', profilePicture);
     }
+    console.log('before try');
+    
 
     try {
-      const response = await axiosInstance.put(`/user/update/${user.id}`, formData, {
+      console.log('before responce');
+      
+      const response = await axiosInstance.put(`/user/update`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        
       });
+      console.log('resp-------------',response);
+      
       if (response.status === 200) {
         const data = response.data;
         toast.success('Profile updated successfully!');

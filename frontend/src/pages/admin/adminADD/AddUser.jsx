@@ -9,13 +9,13 @@ const AddUser = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    mobile: "",
+    phone: "",
     password: "",
   });
   const [errors, setErrors] = useState({
     name: "",
     email: "",
-    mobile: "",
+    phone: "",
     password: "",
   });
 
@@ -27,8 +27,8 @@ const AddUser = () => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
-  const validateMobile = (mobile) => {
-    return /^\d{10}$/.test(mobile);
+  const validatephone = (phone) => {
+    return /^\d{10}$/.test(phone);
   };
 
   const validateName = (name) => {
@@ -55,12 +55,12 @@ const AddUser = () => {
         ...prev,
         email: validateEmail(value) ? "" : "Invalid email format",
       }));
-    } else if (name === "mobile") {
+    } else if (name === "phone") {
       setErrors((prev) => ({
         ...prev,
-        mobile: validateMobile(value)
+        phone: validatephone(value)
           ? ""
-          : "Mobile number must be exactly 10 digits",
+          : "phone number must be exactly 10 digits",
       }));
     } else if (name === "password") {
       setErrors((prev) => ({
@@ -73,11 +73,11 @@ const AddUser = () => {
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
-    if (!formData.name || !validateName(formData.name) || !validateEmail(formData.email) || !validateMobile(formData.mobile) || !formData.password) {
+    if (!formData.name || !validateName(formData.name) || !validateEmail(formData.email) || !validatephone(formData.phone) || !formData.password) {
           setErrors({
              name: !formData.name ? 'Name is required' : !validateName(formData.name) ? 'Name should only contain letters and single spaces between words' : '',
         email: !validateEmail(formData.email) ? 'Invalid email format' : '',
-        mobile: !validateMobile(formData.mobile) ? 'Mobile number must be exactly 10 digits' : '',
+        phone: !validatephone(formData.phone) ? 'phone number must be exactly 10 digits' : '',
         password: formData.password.length < 6 ? 'Password must be at least 6 characters' : ''
       
           })  
@@ -114,6 +114,7 @@ const AddUser = () => {
           disabled={isLoading}
         >
           <ArrowLeft className="icon" />
+  
         </button>
             <h2 className="card-title">
               <User className="icon" />
@@ -165,22 +166,22 @@ const AddUser = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="mobile" className="form-label">
+                <label htmlFor="phone" className="form-label">
                   <Phone className="icon" />
-                  Mobile
+                  phone
                 </label>
                 <input
-                  id="mobile"
-                  name="mobile"
+                  id="phone"
+                  name="phone"
                   type="tel"
-                  value={formData.mobile}
+                  value={formData.phone}
                   onChange={handleChange}
-                  className={`form-input ${errors.mobile ? 'error' : ''}`}
+                  className={`form-input ${errors.phone ? 'error' : ''}`}
                 />
-                {errors.mobile && (
+                {errors.phone && (
                   <p className="error-message">
                     <AlertCircle className="icon" />
-                    {errors.mobile}
+                    {errors.phone}
                   </p>
                 )}
               </div>

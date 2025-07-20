@@ -107,20 +107,20 @@ const AdminHome = () => {
               </div>
             </div>
 
-            <div className="admin-actions">
+            {/* <div className="admin-actions">
               <button
                 className="btn btn-dashboard"
                 onClick={() => navigate("/admin/dashboard")}
               >
                 Go to Dashboard
               </button>
-            </div>
+            </div> */}
           </div>
         </main>
 
         <footer className="footer">
           <div className="container">
-            <p>&copy; 2024 Admin Panel. All rights reserved.</p>
+            <p>&copy; 2025 Admin Panel.</p>
           </div>
         </footer>
         {isLogoutPopUpVisible && (

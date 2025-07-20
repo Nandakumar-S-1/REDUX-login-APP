@@ -13,12 +13,17 @@ const userProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
+  console.log('updateProfile controller reached 1');
+
   try {
     const { userName, email, phone } = req.body;
-    const user = await User.findById(req.params.id);
+
+    const user = await User.findById(req.user.id);
     if (!user) {
-      return res.status(404).json({ message: "user not dound" });
+      return res.status(404).json({ message: "user not found" });
     }
+    console.log('current user-----', user);
+
     const updatedProfileData = {
       userName: userName || user.userName,
       email: email || user.email,
@@ -28,18 +33,20 @@ const updateProfile = async (req, res) => {
     if (req.file) {
       updatedProfileData.profilePicture = "/uploads/" + req.file.filename;
     }
+
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      req.user.id,
       updatedProfileData,
       { new: true }
     );
 
-    console.lof(updatedUser);
+    console.log('Updated Data:', updatedProfileData, 'Updated User:', updatedUser);
 
     res.status(200).json({
-      message: "profile updated successfully",
+      message: "Profile updated successfully",
       user: updatedUser,
     });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -47,7 +54,7 @@ const updateProfile = async (req, res) => {
 
 const logOut = (req, res) => {
   res.clearCookie("userToken");
-  res.status(200).json({ message: "logged out succesfully" });
+  res.status(200).json({ message: "Logged out successfully" });
 };
 
 module.exports = {

@@ -53,7 +53,7 @@ const UserProfile = () => {
           <div className="profile-info">
             <div className="info-item">
               <User size={20} />
-              <p><b>Name:</b> {user.username}</p>
+              <p><b>Name:</b> {user.userName}</p>
             </div>
             <div className="info-item">
               <Mail size={20} />

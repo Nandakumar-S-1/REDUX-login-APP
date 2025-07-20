@@ -7,52 +7,54 @@ import { toast, Toaster } from 'sonner'
 import '../../assets/styles/Login.css'
 
 const Login = () => {
-
     const [formData,setformData]=useState({
         email:'',
         password:''
     })
-    const [emailError,setEmailError]=useState('')
-    const [passwordError,setPasswordError]=useState('')
-
+    const [error, setError] = useState({
+        email: '',
+        password: ''
+    })
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleChange = (e) =>{
         setformData({...formData,[e.target.name]:e.target.value})
-        if(e.target.name==='email')setEmailError('')
-        if(e.target.name==='password')setPasswordError('')
+        if(e.target.name==='email') setError(prev => ({...prev, email: ''}))
+        if(e.target.name==='password') setError(prev => ({...prev, password: ''}))
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         let formValid = true
+        let newErrors = {email: '', password: ''}
+
         if(!formData.email){
-            setEmailError('Email  is required')
+            newErrors.email = 'Email is required'
             formValid=false
         }
-        
+                
         if(!formData.password){
-            setPasswordError('password is required')
+            newErrors.password = 'Password is required'
             formValid=false
         }
+
+        setError(newErrors)
         if(!formValid)return
 
         try {
             const response = await axiosInstance.post('/auth/login',formData)
             const user = response.data.user
             dispatch(login({user}))
-
-            toast.success('Login Succesful')
+            toast.success('Login Successful')
             navigate('/home')
-
         } catch (error) {
             if(error.response?.status ===403){
                 toast.error('Admins cannot login as users')
             }else if(error.response ?.status ===400){
                 toast.error(error.response?.data ?.message || 'Login Failed')
             }else{
-                toast.error('An unexpected error occured')
+                toast.error('An unexpected error occurred')
             }
         }
     }
@@ -61,45 +63,43 @@ const Login = () => {
     <>
         <Toaster position='top-right' richColors/>
         <div className="login-container">
-        <div className="login-form">
-          <h1>Login</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <div className="input-wrapper">
-                
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="email@example.com"
-                />
-              </div>
-              {emailError && <p className="error">{emailError}</p>}
+            <div className="login-card">
+                <h2 className="login-title">Login</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="form-group">
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className={`form-input ${error.email ? "input-error" : ""}`}
+                        />
+                        {error.email && <p className="error-message">{error.email}</p>}
+                    </div>
+
+                    <div className="form-group">
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className={`form-input ${error.password ? "input-error" : ""}`}
+                        />
+                        {error.password && <p className="error-message">{error.password}</p>}
+                    </div>
+
+                    <button type="submit" className="submit-btn">
+                        Sign in
+                    </button>
+                </form>
+
+                <a className="signup-link" href="/signup">
+                    Signup?
+                </a>
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <div className="input-wrapper">
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter your password"
-                />
-              </div>
-              {passwordError && <p className="error">{passwordError}</p>}
-            </div>
-            <button type="submit">Sign in</button>
-          </form>
-          <a className="signup-link" href="/signup">
-            Signup?
-          </a>
         </div>
-      </div>
     </>
   )
 }

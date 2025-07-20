@@ -6,24 +6,24 @@ import '../../../assets/styles/EditAndDelete.css'
 
 const EditAndDelete = ({user,onSave,onCancel,update}) => {
     const [formData,setFormData]=useState({
-        name:user.username,
+        name:user.userName,
         email: user.email,
-        mobile: user.phone
+        phone: user.phone
     })
 
     const [showConfirm,setShowConfirm]=useState(false)
     const [errors,setErrors]=useState({
         name:'',
         email:'',
-        mobile:''
+        phone:''
     })
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return regex.test(email)
   }
 
-  const validateMobile = (mobile) => {
-    return /^\d{10}$/.test(mobile);
+  const validatephone = (phone) => {
+    return /^\d{10}$/.test(phone);
   }
 
   const validateName = (name) => {
@@ -44,10 +44,10 @@ const EditAndDelete = ({user,onSave,onCancel,update}) => {
         ...prev,
         email: validateEmail(value) ? '' : 'Invalid email format'
       }))
-    } else if (name === 'mobile') {
+    } else if (name === 'phone') {
       setErrors((prev) => ({
         ...prev,
-        mobile: validateMobile(value) ? '' : 'Mobile number must be exactly 10 digits'
+        phone: validatephone(value) ? '' : 'phone number must be exactly 10 digits'
       }))
     }
   }
@@ -59,11 +59,11 @@ const EditAndDelete = ({user,onSave,onCancel,update}) => {
   const saveEdit = async () => {
     setShowConfirm(false)
 
-    if (!formData.name || !validateName(formData.name) || !validateEmail(formData.email) || !validateMobile(formData.mobile)) {
+    if (!formData.name || !validateName(formData.name) || !validateEmail(formData.email) || !validatephone(formData.phone)) {
       setErrors({
         name: !formData.name ? 'Name is required' : !validateName(formData.name) ? 'Name should only contain letters and single spaces between words' : '',
         email: validateEmail(formData.email) ? '' : 'Invalid email format',
-        mobile: validateMobile(formData.mobile) ? '' : 'Mobile number must be exactly 10 digits'
+        phone: validatephone(formData.phone) ? '' : 'phone number must be exactly 10 digits'
       });
       return;
     }
@@ -117,19 +117,19 @@ const EditAndDelete = ({user,onSave,onCancel,update}) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="mobile">
+          <label htmlFor="phone">
             <Phone size={18} />
-            Mobile
+            phone
           </label>
           <input
             type="tel"
-            id="mobile"
-            name="mobile"
-            value={formData.mobile}
+            id="phone"
+            name="phone"
+            value={formData.phone}
             onChange={handleChange}
             required
           />
-          {errors.mobile && <p className="error">{errors.mobile}</p>}
+          {errors.phone && <p className="error">{errors.phone}</p>}
         </div>
 
         <div className="button-group">
