@@ -12,9 +12,13 @@ import Dashboard from "./pages/admin/adminDash/Dashboard";
 import AddUser from "./pages/admin/adminADD/AddUser";
 import { AdminProtect, AdminLoginProtect } from "./secure/AdminProtect";
 import NotFoundError from "./pages/Error/ErrorNotfound";
+// import ListComp from "./ListComp";
 
 const App = () => {
-  return (
+  return (  
+    <>  
+
+    
     <Router>
       <Routes>
         {/* user routess  */}
@@ -92,11 +96,14 @@ const App = () => {
             </AdminProtect>
           }
         />
+        {/* <Route path="/list" element={<UserProtect><ListComp/></UserProtect>}/> */}
         {/* error  */}
         <Route path="*" element={<NotFoundError />} />
       </Routes>
     </Router>
+    </>
   );
+
 };
 
 export default App;

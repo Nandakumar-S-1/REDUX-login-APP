@@ -21,14 +21,16 @@ const adminPersistConfig ={
     storage
 }
 
+
+
+
 const rootReducer = combineReducers({
     auth:persistReducer(authPersistConfig,userReducer),
     admin:persistReducer(adminPersistConfig,adminReducer)
-})
+  })
 
 // const Store = configureStore({
 //     reducer:rootReducer,
-    
 // })
 const Store = configureStore({
   reducer: rootReducer,

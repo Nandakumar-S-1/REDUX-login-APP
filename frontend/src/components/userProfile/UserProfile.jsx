@@ -34,6 +34,7 @@ const UserProfile = () => {
     setIsLogoutPopUpVisible(false);
   }
 
+  
   return (
     <div className="user-profile-container">
       <div className="profile-card">
@@ -113,6 +114,7 @@ const UserProfile = () => {
           </div>
         </div>
       )}
+
     </div>
   );
 };
