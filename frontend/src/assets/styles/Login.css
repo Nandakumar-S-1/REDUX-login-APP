@@ -150,7 +150,7 @@ body:has(.login-container) {
   display: block;
   text-align: center;
   margin-top: 20px;
-  color: #667eea;
+  color: #0029e0;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -159,7 +159,7 @@ body:has(.login-container) {
 }
 
 .signup-link:hover {
-  background: rgba(102, 126, 234, 0.1);
+  background: rgba(18, 37, 124, 0.1);
   text-decoration: none;
   transform: translateY(-1px);
 }
